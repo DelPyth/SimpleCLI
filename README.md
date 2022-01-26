@@ -14,7 +14,7 @@ There's a two ways (I can think of) to do so:
 
 ## Does this have any practical use over a GUI?
 Hell no! A GUI is much more powerful and allows for much more control over user input.
-This whole demo is purely to show off the use of a console as your interface as merely to show off.
+This whole demo is purely to show the use of a console as your interface as merely to be fancy and look cool to all your friends :)
 
 ## What's `oop.ahk`?
 That is my way of doing Object Oriented Programming in AHK. It's a little.. tempermental and requires the include to be last or something close to last, read more about why in that file.
