@@ -411,3 +411,42 @@ save_console(con)
 	}
 	return true
 }
+
+static example_multi_line_input := "Allow the user to enter multiple lines of text."
+multi_line_input(con)
+{
+	; Set the title.
+	con.title := "multi_line_input - " . A_ScriptName
+
+	con.writeln("Type some multi-line text.")
+	con.writeln("Enter a blank line to quit the example.`n")
+
+	txt := ""
+
+	; Keep looping until the user enters a blank line.
+	loop
+	{
+		con.write(">>> ")
+		con.fgcolor := con.Color.FG_YELLOW
+		line := con.input()
+		con.fgcolor := con.Color.FG_GRAY
+
+		if (line == NULL)
+		{
+			break
+		}
+
+		txt .= line . "`n"
+	}
+
+	txt := RTrim(txt, "`n")
+
+	if (txt != NULL)
+	{
+		con.writeln("You entered: ")
+		con.writeln("--------------------------------")
+		con.writeln(txt)
+		con.writeln("--------------------------------")
+	}
+	return true
+}
