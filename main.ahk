@@ -3,8 +3,8 @@
 	description : A quick CLI example to demonstrate the use of the AHK library
 	----------- : as well as some common ideas used in other CLI tools.
 	author ---- : TopHatCat
-	version --- : v0.1.0
-	date ------ : 24-01-2022  [DD-MM-YYYY]
+	version --- : v1.1.0
+	date ------ : 27-01-2022  [DD-MM-YYYY]
 */
 
 ; Note that OOP is at the bottom, read why in lib/oop.ahk.
@@ -34,11 +34,11 @@ class Program
 		; The reason we aren't using a class property is because we want to show why OOP would work in many scenarios.
 		con := new CMD()
 
-		; Change the title. main.ahk v1.0.0
+		; Change the title. main.ahk v1.1.33.10
 		con.title := A_ScriptName . " v" . A_AhkVersion
 
 		; Display our welcome message.
-		con.writeln("Simple CLI example. v1.0.0")
+		con.writeln("Simple CLI example. v1.1.0")
 		con.writeln("This is to show off my CONSOLE class and how you can use it to create a console application in AHK.")
 
 		; If the user provided any command line arguments, display them.

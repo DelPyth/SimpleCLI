@@ -4,7 +4,7 @@
 	----------- : as well as some common ideas used in other CLI tools.
 	author ---- : TopHatCat
 	version --- : v0.1.0
-	date ------ : 25-01-2022  [DD-MM-YYYY]
+	date ------ : 27-01-2022  [DD-MM-YYYY]
 */
 
 /*

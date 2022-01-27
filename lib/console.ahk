@@ -2,8 +2,8 @@
 	name ------ : console.ahk
 	description : Command line tools for AutoHotkey.
 	author ---- : TopHatCat
-	version --- : v0.1.0
-	date ------ : 21-01-2022  [DD-MM-YYYY]
+	version --- : v0.2.0
+	date ------ : 27-01-2022  [DD-MM-YYYY]
 	notes ----- : Might need to work on the functions and add more properties.
 	----------- : Otherwise, this is how it is for now.
 	----------- : Colors constants will NOT change as these are built-in to the console's colors.
