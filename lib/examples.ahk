@@ -7,6 +7,26 @@
 	date ------ : 25-01-2022  [DD-MM-YYYY]
 */
 
+/*
+	To create your own example:
+	1. Create a new function with the parameter:
+		con : The console object to control... the console.
+	2. Change the title of the console to match the other examples below:
+		con.title := "my_test - " . A_ScriptName
+	3. Add a property above the function with the name of the example and the description of the example:
+		static example_my_test := "A quick test to print some stuff to the console."
+	4. Return either TRUE for success, or a string telling what went wrong with the example:
+		if (x > 5)
+		{
+			return TRUE
+		}
+		else
+		{
+			return "x is not greater than 5"
+		}
+	That's it.
+*/
+
 static example_hello_world := "Write ""Hello World!"" to the console and wait for the user to press ENTER."
 hello_world(con)
 {

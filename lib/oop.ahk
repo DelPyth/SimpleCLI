@@ -4,7 +4,7 @@
 	author ---- : TopHatCat
 	version --- : v1.0.0
 	date ------ : 21-01-2022  [DD-MM-YYYY]
-	notes ----- : - Runs in the global scope. If there's a way to run the if statement without creating a new function, without create new variables,
+	notes ----- : - Runs in the global scope. If there's a way to run the if statement without creating a new function, without creating new variables,
 	----------- :   and without requiring this include to be at the bottom of an include list, then be my guest.
 	----------- : - This file MUST be included last if other files execute code as this will run a command and close the program.
 	----------- : - The reason we can't just throw this in a function and use static to initialize it before everything else is because static is called before everything else,

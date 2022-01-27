@@ -22,29 +22,42 @@ class Program
 {
 	init(args*)
 	{
+		; Set tray icon to our project icon.
+		; This will not change the icon of the console window.
+		; this requires the AHK executable, or the compiled script's icon to change..
+		Menu, Tray, Icon, % A_ScriptDir . "/program.ico"
+
 		; Control the console.
+		; The reason we aren't using a class property is because we want to show why OOP would work in many scenarios.
 		con := new CMD()
 
-		; Change the title.
+		; Change the title. main.ahk v1.0.0
 		con.title := A_ScriptName . " v" . A_AhkVersion
 
 		; Display our welcome message.
 		con.writeln("Simple CLI example. v1.0.0")
 		con.writeln("This is to show off my CONSOLE class and how you can use it to create a console application in AHK.")
 
+		; If the user provided any command line arguments, display them.
 		if (args.Count() > 0)
 		{
 			con.writeln("You ran this demo using the following arguments:")
 			for index, value in args
 			{
+				;  [1] = some_argument
+				;  [2] = -o
+				;  [2] = file.exe
 				con.write_with_color("  [", {"text": index, "color": con.Color.FG_CYAN}, "] = ", {"text": value, "color": con.Color.FG_BLUE}, "`n")
 			}
 		}
 		else
 		{
+			; Otherwise, just say that the user can give arguments.
 			con.writeln("You can run this demo with command line arguments passed to it.")
 			con.writeln("It doesn't seem like you gave any arguments.")
 		}
+
+		; Add a new line for clarity.
 		con.write("`n")
 
 		; Check for what example the user would like to do:
@@ -55,8 +68,10 @@ class Program
 		; Get list of examples.
 		this.list_examples(con)
 
+		; Just for an easter egg.
 		has_cursed := false
 
+		; Since we want the user to continuiously be able to type commands, we need to loop.
 		loop
 		{
 			; Preppend a little space to help distinguish user input.
@@ -72,6 +87,7 @@ class Program
 			; Reset text color
 			con.fgcolor := con.Color.FG_GRAY
 
+			; Check if the user typed a valid command, an easter egg, or an example.
 			switch (choice)
 			{
 				case "list":
@@ -91,11 +107,14 @@ class Program
 				case "help", "idk":
 					this.say_help(con)
 
+				; Most of the time the user is running the script on its own instead of inside an already existing console,
+				; so we'll just say that we're reloading just so the user knows what happened.
 				case "reload":
 					con.writeln("Reloading...")
 					Reload
 					return EXIT_SUCCESS
 
+				; Easter egg :)
 				case "fuck", "shit", "fuck you", "go fuck yourself":
 					con.writeln("You kiss your mother with that mouth?")
 					has_cursed := true
@@ -120,15 +139,20 @@ class Program
 						con.writeln("Sorry, but I don't know that example.")
 					}
 
+				; Another easter egg :)
 				case "you're cute", "you are cute", "cutie":
 					con.writeln("No, you're cute.")
 
 				; Empty input.
+				; We can just ignore the empty input and continue to ask for more input.
+				; This is how normal consoles work anyways.
 				case NULL:
 					continue
 
+				; Example check.
 				default:
 					; If we don't have an example with this name, say we don't and then ask again.
+					; To know how to set up a custom example, read lib/examples.ahk
 					if (!this.Examples.HasKey("example_" . choice))
 					{
 						con.writeln("Sorry, but I don't know that example.")
@@ -139,20 +163,24 @@ class Program
 					result := ObjBindMethod(this.Examples, choice, con).Call()
 					if (result != true)
 					{
+						; If the example returned amything but true, we can assume it was an error and print it to the console.
 						con.write_with_color({"text": result . "`n", "color": con.Color.FG_RED})
 					}
 
+					; Reset the console title.
 					con.title := A_ScriptName . " v" . A_AhkVersion
 			}
 		}
 
-		; Just in case we forget to reset the text color, we change it back to default.
+		; Just in case we forget to reset the text color in one of the examples,
+		; we change it back to default so when the script closes, it's as if nothing changed.
 		con.fgcolor := con.Color.FG_GRAY
 
-		; Exit the program successfully.
+		; Exit the program successfully. EXIT_SUCCESS = 0.
 		return EXIT_SUCCESS
 	}
 
+	; Display the help message showing the list of valid commands.
 	say_help(con)
 	{
 		;  cmd1[, cmd2]  -  description
@@ -170,6 +198,7 @@ class Program
 		return NULL
 	}
 
+	; Display a list of all the valid examples. Read lib/examples.ahk for more info.
 	list_examples(con)
 	{
 		for key, description in this.Examples
@@ -197,6 +226,7 @@ class Program
 
 	class Examples
 	{
+		; To keep the examples organized and keep main.ahk shorter, we'll put them in our lib folder.
 		#include %A_ScriptDir%\lib\examples.ahk
 	}
 }
