@@ -25,7 +25,10 @@ class Program
 		; Set tray icon to our project icon.
 		; This will not change the icon of the console window.
 		; this requires the AHK executable, or the compiled script's icon to change..
-		Menu, Tray, Icon, % A_ScriptDir . "/program.ico"
+		if (!A_IsCompiled)
+		{
+			Menu, Tray, Icon, % A_ScriptDir . "/program.ico"
+		}
 
 		; Control the console.
 		; The reason we aren't using a class property is because we want to show why OOP would work in many scenarios.
