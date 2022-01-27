@@ -345,4 +345,42 @@ class CMD
 		Height := NumGet(&CONSOLE_SCREEN_BUFFER_INFO, 2, "short")
 		return {"width": Width, "height": Height}
 	}
+
+	; Holy shit I hate this function.
+	; It was such a headache to do because when you try to get the text, it doesn't add the newline character.
+	; I don't know why, but I added a newline character to the end of each passable line as well as trimming any excess space at the end.
+	; I'm not sure if this is the best way to do it, but it works and it's kinda quick too.
+
+	; Get text of entire console.
+	get_console_text()
+	{
+		obj := this.get_buffer_size()
+		width  := obj.width
+		height := obj.height
+
+		VarSetCapacity(buffer, (width * height) * 2, 0)
+		VarSetCapacity(CoordStruct, 4, 0)
+		Numput(3, &CoordStruct, 0, "short")
+		Numput(3, &CoordStruct, 2, "short")
+		VarSetCapacity(CharsWritten, 1024)
+		if (!DllCall("ReadConsoleOutputCharacter" . CMD._suffix, "uint", this.stdout, "char", &buffer, "uint", width * height, "uint", CoordStruct, "uint", &CharsWritten))
+		{
+			return 0
+		}
+
+		result := ""
+
+		; Loop through the width of the console's size and add a new line to the result.
+		loop, % height
+		{
+			result .= Chr(NumGet(&buffer, (A_Index - 1) * 2, "ushort"))
+			if (Mod(A_Index, width) == 0)
+			{
+				result := RTrim(result) . "`n"
+			}
+		}
+
+		; Remove any trailing newlines.
+		return RegExReplace(result, "`n+$")
+	}
 }

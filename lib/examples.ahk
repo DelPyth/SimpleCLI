@@ -357,3 +357,57 @@ open_file(con)
 	file_obj.Close()
 	return true
 }
+
+static example_save_console := "Save the current console's contents to a file."
+save_console(con)
+{
+	; Set the title.
+	con.title := "save_console - " . A_ScriptName
+
+	con.writeln("You can use environment variables surrounded with percent signs (%) as well as using a tilda (~) for the home directory.")
+	con.write_with_color("Enter '", {"text": "exit", "color": con.Color.FG_CYAN}, "' to quit the example.`n")
+	con.write("The file path:  ")
+	con.fgcolor := con.Color.FG_YELLOW
+	file_path := con.input()
+	con.fgcolor := con.Color.FG_GRAY
+	if (file_path == NULL)
+	{
+		return "You didn't enter a file."
+	}
+
+	if (file_path = "exit")
+	{
+		return true
+	}
+
+	; Replace starting Tilda with the home directory.
+	EnvGet, env_home, USERPROFILE
+	file_path := RegExReplace(file_path, "^\~", env_home)
+
+	; Replace environment variables.
+	while (RegExMatch(file_path, "iOS)%([a-z0-9_]+)%", match_obj))
+	{
+		EnvGet, env_var, % match_obj[1]
+		file_path := StrReplace(file_path, Format("%{1}%", match_obj.Value(1)), env_new)
+	}
+
+	if (FileExist(file_path))
+	{
+		return "The file you've entered already exists."
+	}
+
+	file_path := StrReplace(file_path, "/", "\")
+
+	con.writeln("Appending console text to:  {1}", file_path)
+
+	; Save the console contents to the file.
+	try
+	{
+		FileAppend, % con.get_console_text(), % file_path
+	}
+	catch err
+	{
+		return IsObject(err) ? err.message : err
+	}
+	return true
+}
