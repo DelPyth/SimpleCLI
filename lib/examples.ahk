@@ -22,7 +22,7 @@
 		}
 		else
 		{
-			return "x is not greater than 5"
+			return "x cannot be greater than 5"
 		}
 	That's it.
 */
