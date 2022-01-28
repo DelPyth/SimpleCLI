@@ -43,7 +43,7 @@ con.fgcolor := con.Color.FG_CYAN
 con.bgcolor := con.Color.BG_RED
 con.writeln("This is probably really hard to see. Sorry!")
 con.writeln("Let's clean this up...")
-con.set_color()  ; Reset console colors back to default (grey text, back background).
+con.set_color()  ; Reset console colors back to default (grey text, black background).
 ```
 
 ## What can the console class not do?
