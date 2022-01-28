@@ -7,6 +7,29 @@
 	date ------ : 27-01-2022  [DD-MM-YYYY]
 */
 
+; Compile section...
+;@Ahk2Exe-AddResource program.ico, 160  ; Replaces 'H on blue'
+;@Ahk2Exe-AddResource program.ico, 206  ; Replaces 'S on green'
+;@Ahk2Exe-AddResource program.ico, 207  ; Replaces 'H on red'
+;@Ahk2Exe-AddResource program.ico, 208  ; Replaces 'S on red'
+;@Ahk2Exe-SetMainIcon program.ico
+
+;@Ahk2Exe-ConsoleApp
+;@Ahk2Exe-ExeName build\SimpleCLI.exe
+
+;@Ahk2Exe-SetCompanyName DeltaPyth
+;@Ahk2Exe-SetCopyright DelPyth 2022
+;@Ahk2Exe-SetDescription A simple CLI example written in AHK.
+;@Ahk2Exe-SetFileVersion 1.1.0.0
+;@Ahk2Exe-SetInternalName SimpleCLI
+;@Ahk2Exe-SetLanguage English
+;@Ahk2Exe-SetName SimpleCLI
+;@Ahk2Exe-SetOrigFilename main.ahk
+;@Ahk2Exe-SetProductName SimpleCLI
+;@Ahk2Exe-SetProductVersion 1.1.0.0
+;@Ahk2Exe-SetVersion 1.1.0.0
+; End compile section...
+
 ; Note that OOP is at the bottom, read why in lib/oop.ahk.
 ; MISC can be below since it's just functions, no need to execute anything since AHK parses functions before running.
 #include <util>
