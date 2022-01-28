@@ -15,7 +15,7 @@
 ;@Ahk2Exe-SetMainIcon program.ico
 
 ;@Ahk2Exe-ConsoleApp
-;@Ahk2Exe-ExeName build\SimpleCLI.exe
+;@Ahk2Exe-ExeName %A_ScriptDir%\build\SimpleCLI.exe
 
 ;@Ahk2Exe-SetCompanyName DeltaPyth
 ;@Ahk2Exe-SetCopyright DelPyth 2022
