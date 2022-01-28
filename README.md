@@ -52,10 +52,10 @@ It does not have built-in user interfaces like a progress bar, selection list, o
 
 ### Note...
 - Testing is needed on other versions of windows and bit sizes of AHK.
-- *Method names are due to change and cleanup, so keep an eye on the changelog for name changes!*
+- *Method names are due to change and cleanup, so keep an eye on the changelog for anything different!*
 - Documentation for `lib/console.ahk` is to be done, I'm just pushing this demo to github before I lose it to something dumb.
 
 ### What I want to add next:
-- A new write method that allows for changing the color without passing an map as a parameter.
+- A new write method that allows for changing the color without passing a map as a parameter.
 - Clean up method names.
 - Add new properties.
