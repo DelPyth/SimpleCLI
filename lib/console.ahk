@@ -2,7 +2,7 @@
 	name ------ : console.ahk
 	description : Command line tools for AutoHotkey.
 	author ---- : TopHatCat
-	version --- : v0.2.0
+	version --- : v0.2.1
 	date ------ : 27-01-2022  [DD-MM-YYYY]
 	notes ----- : Might need to work on the functions and add more properties.
 	----------- : Otherwise, this is how it is for now.
@@ -82,6 +82,7 @@ class CMD
 
 	static _fgcolor := CMD.Color.GRAY
 	static _bgcolor := CMD.Color.BLACK
+	static _icon := A_AHKPath
 
 	; Don't let foreground and background colors be the same.
 	static color_protect := true
@@ -106,7 +107,7 @@ class CMD
 		DllCall("FreeConsole")
 	}
 
-	fgcolor
+	fgcolor[]
 	{
 		set
 		{
@@ -120,7 +121,7 @@ class CMD
 		}
 	}
 
-	bgcolor
+	bgcolor[]
 	{
 		set
 		{
@@ -155,7 +156,7 @@ class CMD
 	}
 
 	; This doesn't seem to work for me, but it might work for you?
-	fullscreen
+	fullscreen[]
 	{
 		set
 		{
@@ -166,7 +167,7 @@ class CMD
 		}
 	}
 
-	cursor
+	cursor[]
 	{
 		get
 		{
@@ -199,6 +200,44 @@ class CMD
 
 			COORD := (Y << 16) + X
 			DllCall("SetConsoleCursorPosition", CMD._ptr, this.stdout, "uint", COORD)
+		}
+	}
+
+	icon[]
+	{
+		get
+		{
+			return this._icon
+		}
+
+		set
+		{
+			if (!FileExist(value))
+			{
+				throw Exception("File does not exist", -1, value)
+			}
+
+			ico := DllCall("LoadImage", "uint", 0, "str", value, "uint", 1, "int", 0, "int", 0, "uint", 0x00000010)
+			result := DllCall("SetConsoleIcon", "int", ico)
+			if (!result)
+			{
+				throw Exception("Could not set the icon of the console", -1, value)
+			}
+
+			this._icon := value
+		}
+	}
+
+	font_size[]
+	{
+		get
+		{
+			VarSetCapacity(struct, 8, 0)
+			DllCall("GetCurrentConsoleFont", "Ptr", this.stdout, "Int", 0, "Ptr", &struct)
+
+			width := NumGet(&struct, 4, "UShort")
+			height := NumGet(&struct, 6, "UShort")
+			return {"width": width, "height": height}
 		}
 	}
 
